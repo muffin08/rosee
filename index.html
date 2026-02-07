@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rose Day Surprise 🌹</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comic Sans MS', cursive;
+}
+
+body {
+  min-height: 100vh;
+  background: 
+    linear-gradient(rgba(255,192,203,0.6), rgba(255,192,203,0.6)),
+    url('bg.png');
+  background-size: cover;
+  background-attachment: fixed;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* Banner styles */
+.banner {
+  margin: 60px auto;
+  padding: 25px;
+  width: 90%;
+  max-width: 600px;
+  background: rgba(255, 182, 193, 0.95);
+  border-radius: 25px;
+  font-size: 2.2rem;
+  color: hotpink;
+  box-shadow: 0 0 25px pink;
+}
+
+/* Hidden initially */
+#secondSection {
+  display: none;
+}
+
+/* Surprise cards */
+.surprise-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.cover {
+  width: 220px;
+  height: 300px;
+  background: linear-gradient(135deg, pink, deeppink);
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 0 15px hotpink;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: white;
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  display: none;
+}
+
+/* Rose sparkle */
+.rose {
+  position: fixed;
+  font-size: 24px;
+  pointer-events: none;
+  animation: float 1.4s linear forwards;
+}
+
+@keyframes float {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-90px) scale(1.6); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<audio id="bgMusic" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- FIRST BANNER -->
+<div id="firstBanner" class="banner">
+  💖 HAPPY ROSE DAY BABYYY 🌹💖<br>
+  <small>(click anywhere)</small>
+</div>
+
+<!-- SECOND SECTION -->
+<div id="secondSection">
+  <div class="banner">
+    🌸 A little surprise for you 🌸
+  </div>
+
+  <div class="surprise-container">
+    <div class="cover" onclick="reveal(this)">
+      Surprise 🌹
+      <img src="photo1.jpg">
+    </div>
+
+    <div class="cover" onclick="reveal(this)">
+      Open Me 💕
+      <img src="photo2.jpg">
+    </div>
+  </div>
+</div>
+
+<script>
+let started = false;
+
+/* First click logic */
+document.addEventListener("click", function(e) {
+  if (!started) {
+    document.getElementById("firstBanner").style.display = "none";
+    document.getElementById("secondSection").style.display = "block";
+    document.getElementById("bgMusic").play();
+    started = true;
+  }
+  popRoses(e.clientX, e.clientY);
+});
+
+/* Rose sparkle function */
+function popRoses(x, y) {
+  for (let i = 0; i < 6; i++) {
+    let rose = document.createElement("div");
+    rose.className = "rose";
+    rose.innerText = "🌹";
+    rose.style.left = x + Math.random() * 40 - 20 + "px";
+    rose.style.top = y + Math.random() * 40 - 20 + "px";
+    document.body.appendChild(rose);
+    setTimeout(() => rose.remove(), 1400);
+  }
+}
+
+/* Reveal photo */
+function reveal(card) {
+  let img = card.querySelector("img");
+  img.style.display = "block";
+  card.style.fontSize = "0";
+}
+</script>
+
+</body>
+</html>
